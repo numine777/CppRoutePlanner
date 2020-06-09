@@ -21,8 +21,7 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
 // - Node objects have a distance method to determine the distance to another node.
 
 float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
-    float dumb = node->distance(*(this->end_node));
-    return dumb;
+    return node->distance(*(this->end_node));
 }
 
 
@@ -108,7 +107,7 @@ void RoutePlanner::AStarSearch() {
         current_node = NextNode();
 
         if (current_node->distance(*end_node) == 0) {
-            m_Model.path = ConstructFinalPath(end_node);
+            ConstructFinalPath(end_node);
             return;
         }
 
