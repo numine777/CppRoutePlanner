@@ -27,6 +27,14 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
     return std::move(contents);
 }
 
+bool InRange(int z) {
+      if (z >= 0 && z <= 100) {
+        return true;
+      } else {
+        return false;
+      }
+}
+
 int main(int argc, const char **argv)
 {    
     std::string osm_data_file = "";
@@ -51,15 +59,17 @@ int main(int argc, const char **argv)
         else
             osm_data = std::move(*data);
     }
-    
-    // TODO 1: Declare floats `start_x`, `start_y`, `end_x`, and `end_y` and get
-    // user input for these values using std::cin. Pass the user input to the
-    // RoutePlanner object below in place of 10, 10, 90, 90.
+ 
     float start_x, start_y, end_x, end_y;
+	
+  	std::cout << "Please input start and end coordinates from 0 to 100: ";
+    std::cin >> start_x >> start_y >> end_x >> end_y;
+  	
+  	if (!InRange(start_x) || !InRange(start_y) || !InRange(end_x) || !InRange(end_y)) {
+      std::cout << "Invalid entry, Please input start and end coordinates from 0 to 100: ";
+      std::cin >> start_x >> start_y >> end_x >> end_y;
+    }
 
-    std::cin >> start_x >> start_y >> end_x >> end_y;;
-    
-    
     // Build Model.
     RouteModel model{osm_data};
 
